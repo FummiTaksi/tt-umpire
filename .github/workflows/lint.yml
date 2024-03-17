@@ -1,0 +1,21 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: [ubuntu-latest]
+    name: Lint
+
+    strategy:
+      matrix:
+        node_version: [18.18.2]
+  
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+   
